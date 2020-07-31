@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="Shopping-cart-area pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="#">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="li-product-remove">Borrar</th>
+                                    <th class="li-product-thumbnail">Imagen</th>
+                                    <th class="cart-product-name">Producto</th>
+                                    <th class="li-product-price">Precio Unitario</th>
+                                    <th class="li-product-quantity">Cantidad</th>
+                                    <th class="li-product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+                                    <td class="li-product-thumbnail"><a href="#"><img src="~/Content/images/large-size/1.jpg" width="100" height="100" alt="Li's Product Image"></a></td>
+                                    <td class="li-product-name"><a href="#">Producto 1</a></td>
+                                    <td class="li-product-price"><span class="amount">$46.80</span></td>
+                                    <td class="quantity">
+                                        <label>Cantidad</label>
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal"><span class="amount">$70.00</span></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>Total</h2>
+                                <ul>
+                                    <li>Subtotal <span>$130.00</span></li>
+                                    <li>Total <span>$130.00</span></li>
+                                </ul>
+                                
+                                <button type="button" class="btn btn-primary" id="btnprocessar">Procesar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<br />
+<div class="container">
+    <label>
+        Latitude:
+    </label>
+    <input id="txtLat" type="text" style="color:red" />
+    <label>
+        Longitude:
+    </label>
+    <input id="txtLng" type="text" style="color:red" />
+
+    <div id="map" style="width: auto; height: 500px;">
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgKdx4a-iT6Ts5NuUDkjhu0CzLcjZWPsE&callback"></script>
+<script src="~/Scripts/js/jquery-1.12.4.min.js"></script>
+
+<script>
+
+    function initialize() {
+        // Creating map object
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: new google.maps.LatLng(-18.0282795, -70.2422131),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+
+        var vMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(-18.0282795, -70.2422131),
+            draggable: true
+        });
+
+
+        google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+            $("#txtLat").val(evt.latLng.lat().toFixed(6));
+            $("#txtLng").val(evt.latLng.lng().toFixed(6));
+
+            map.panTo(evt.latLng);
+        });
+
+        // centers the map on markers coords
+        map.setCenter(vMarker.position);
+
+        // adds the marker on the map
+        vMarker.setMap(map);
+    }
+    initialize();
+
+    $("#btnprocessar").click(function () {
+        var iddcliente = "1111";
+        var nombrecliente = "Pepep";
+        var latitud = $("#txtLat").val();
+        var longitud = $("#txtLng").val();
+        var producto = "papap";
+
+        var data = { id_cliente: iddcliente, nombre_cliente: nombrecliente,latitud: latitud, longitud: longitud, producto: producto }
+
+        $.ajax({
+            url: '/Pagar/Procesar/',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+
+                console.log(data);
+                alert("Registrado ");
+
+            },
+            error: function (err) {
+                console.log(err.responseText);
+
+            }
+        })
+    })
+
+
+</script>

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ProyectoWeb2_Cliente",
+    "\\ProyectoWeb2_Cliente\\Views",
+    "\\ProyectoWeb2_Cliente\\Views\\Inicio"
   ],
+  "SelectedNode": "\\ProyectoWeb2_Cliente\\Views\\Inicio\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }

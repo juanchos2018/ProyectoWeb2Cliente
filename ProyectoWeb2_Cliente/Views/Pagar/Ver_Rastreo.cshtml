@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Ver_Rastreo";
+}
+
+<script src="~/Scripts/js/lottie-player.js"></script>
+
+
+<input type="text" hidden="" name="name" id="txtcodigo" value="-MBCk207t_xaxJQGjvyF" />
+<input type="text" hidden="" name="name" id="txtkey" value="-MDaXuC2MOuxB9zeZFMs" />
+<lottie-player src="https://assets5.lottiefiles.com/packages/lf20_EEU4nQ.json" background="transparent" speed="1" style="width: 300px; height: 300px;margin-left:30% " loop autoplay></lottie-player>
+
+
+<div class="container">
+
+    <div id="googleMap" style="width:100%;height:450px; background-color: #CCC">
+
+    </div>
+
+</div>
+
+<script src="~/Scripts/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgKdx4a-iT6Ts5NuUDkjhu0CzLcjZWPsE&callback"></script>
+
+
+
+
+<script>
+
+    var codigo = $("#txtcodigo").val();
+    var key = $("#txtkey").val();
+    var map;
+    var NewLatLng = [];
+    var cliente = [];
+    var markers = [];
+    var marker;
+    var bounds;
+    var infowindow;
+    // 2. Initialize the Map details.
+    function initialize() {
+
+        bounds = new google.maps.LatLngBounds();
+        var latlng = new google.maps.LatLng(-18.0201099, -70.2569101);
+        var myOptions = {
+            zoom: 14,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+        marker = new google.maps.Marker
+
+        infowindow = new google.maps.InfoWindow({ content: "cargando" });
+
+        marker = new google.maps.Marker
+            (
+                {
+                    position: new google.maps.LatLng(-18.0201099, -70.2569101),
+                    map: map,
+                    title: 'Click me'
+
+                }
+
+            );
+
+        //var data = { codigo_conductor: codigo, key_envio: key }
+        //$.ajax({
+        //    type: "GET",
+        //    url: '/Mapa/Get_Position2/',
+        //    data: data,
+        //    contentType: "application/json",
+        //    success: function (data) {
+
+        //        $.each(data, function (i, item) {
+        //            NewLatLng.push(new google.maps.LatLng(item.latitud_conductor, item.longitud_conductor));
+
+        //            google.maps.event.addListener(marker, 'click', function () {
+        //                infowindow.setContent(item.latitud_conductor + "<br> <input type='image' src='https://firebasestorage.googleapis.com/v0/b/fir-app-cf755.appspot.com/o/Tareas%2F22cb47e8116b4db1b44616a659b40444.jpg?alt=media&token=35694fb3-8b8c-427c-8af3-33bd267d9dfe' width='100px' height='100px'> ");
+        //                infowindow.open(map, this);
+
+
+        //            });
+
+        //        });
+
+        //    }
+        //})
+
+        otro();
+        PoneerCliente();
+
+
+    }
+
+    function listarusuarios() {
+        var data = { codigo_conductor: codigo, key_envio: key }
+        $.ajax({
+            type: "GET",
+            url: '/Pagar/Get_Position2/',
+            data: data,
+            contentType: "application/json",
+            success: function (data) {
+
+                NewLatLng = []
+
+                $.each(data, function (i, item) {
+                    NewLatLng.push(new google.maps.LatLng(item.latitud_conductor, item.longitud_conductor));
+                    //  cliente.push(item.latitud, item.longitud);
+                    google.maps.event.addListener(marker, 'click', function () {
+                        infowindow.setContent(item.latitud_conductor + "<br> <input type='image' src='https://firebasestorage.googleapis.com/v0/b/fir-app-cf755.appspot.com/o/Tareas%2F22cb47e8116b4db1b44616a659b40444.jpg?alt=media&token=35694fb3-8b8c-427c-8af3-33bd267d9dfe' width='100px' height='100px'> ");
+                        infowindow.open(map, this);
+
+
+                    });
+
+                });
+            }
+        })
+    }
+
+    function PoneerCliente() {
+        var data = { codigo_conductor: codigo, key_envio: key }
+        $.ajax({
+            type: "GET",
+            url: '/Pagar/Get_Position2/',
+            data: data,
+            contentType: "application/json",
+            success: function (data) {
+
+                $.each(data, function (i, item) {
+
+                    cliente.push(item.latitud, item.longitud);
+
+                });
+
+                var la = cliente[0];
+                var lo = cliente[1];
+                console.log(la);
+                console.log(cliente);
+                var point = new google.maps.LatLng(la, lo);
+                bounds.extend(point);
+
+                var lat_lng = new google.maps.LatLng(la, lo);
+                var marker = new google.maps.Marker({
+                    position: lat_lng,
+                    map: map
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent("Soy cliente");
+                    infowindow.open(map, this);
+                });
+
+            }
+        })
+    }
+
+
+
+    function otro() {
+
+        listarusuarios();
+        $.each(NewLatLng, function (i, item) {
+            marker.setPosition(item);
+            markers.push(marker);
+
+        });
+
+    }
+    // clientes();
+    PoneerCliente();
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    setInterval("otro()", 5000);
+
+    //var animation = bodymovin.loadAnimation({
+    //    container: document.getElementById('bm'),
+    //    renderer: 'svg',
+    //    loop: true,
+    //    autoplay: true,
+    //    path: '~/Scripts/lotties/moto1.json'
+    //})
+
+</script>
+
+
