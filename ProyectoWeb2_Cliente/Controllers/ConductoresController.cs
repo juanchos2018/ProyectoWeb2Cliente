@@ -24,5 +24,12 @@ namespace ProyectoWeb2_Cliente.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult Get_ListaConductores()
+        {
+            var lista = o.listaConductor();
+            var hola = "ASDasd";
+            return Json(lista, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
