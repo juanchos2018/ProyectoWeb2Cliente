@@ -1,4 +1,5 @@
-﻿using ProyectoWeb2_Cliente.Models;
+﻿using LiteDB;
+using ProyectoWeb2_Cliente.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,16 @@ namespace ProyectoWeb2_Cliente.Controllers
             await en.Save_Envio(e,id);
             return Json(pe, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public ActionResult PedidosClientes()
+        {
+            return View();
+        }
+
+        public void buscar()
+        {
+            Console.WriteLine("Hoola we")
         }
     }
 }
