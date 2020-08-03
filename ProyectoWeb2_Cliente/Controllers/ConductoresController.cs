@@ -31,5 +31,12 @@ namespace ProyectoWeb2_Cliente.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult CambioRamaMasteer()
+        {
+            var lista = o.listaConductor();
+            var hola = "ASDasd";
+            return Json(lista, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
