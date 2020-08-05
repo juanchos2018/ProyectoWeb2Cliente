@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout_admin.cshtml";
+}
+
+
+<link href="~/Scripts/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<!-- Button -->
+<div class="card-body">
+    <input type="text" id="txtid_emoresa" name="name" hidden="" value="@ViewBag.Id_empresa" />
+    <button  class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModalXl">
+        <i class="fas fa-newspaper"></i> Nuevo Conductor
+    </button>
+</div>
+
+<!-- Modal Register -->
+<div class="modal fade" id="exampleModalXl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Conductor</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    
+                    <div class="col-xl-8">
+                        <div class="card mb-4">
+                            <div class="card-header">Datos Conductor</div>
+                            <div class="card-body">
+                                <form action="/" method="post">
+
+
+                                    <div class="form-group">
+                                        <label>D.N.I.</label>
+                                        <div class="input-group">
+                                            <input class="borrar form-control" id="txtdni" type="number">
+                                            <button type="button" id="btnconsultar" class="btn btn-primary">Consultar</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombres</label>
+                                        <input class="borrar form-control" id="txtnombres" type="text" placeholder="Nombres">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellidos</label>
+                                        <input class="borrar form-control" id="txtapellidos" type="text" placeholder="Apellidos">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input class="borrar form-control" id="txtcorreo" type="text" placeholder="Correo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input class="borrar form-control" id="txtclave" type="text" placeholder="Contraseña">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Celular</label>
+                                        <input class="borrar form-control" id="txtcelular" type="text" placeholder="Contraseña">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button  type="button" id="btnSave" class="btn btn-success">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">CONDUCTORES</h6>
+    </div>
+    <div class="card-body">
+
+        <table id="tabla" class="table">
+            <thead>
+                <tr>
+                    <th>Dni</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Corrreo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+</div>
+<script src="~/Scripts/js/jquery-3.4.1.js"></script>
+<script src="~/Scripts/js/bootstrap.min.js"></script>
+
+
+<script src="~/Scripts/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/Scripts/js/datatables-demo.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        listaConductores();
+    })
+
+    function listaConductores() {
+        $.ajax({
+            type: "GET",
+            url: '/Conductores/Get_Conductores/',
+            contentType: "application/json",
+            success: function (data) {
+
+                var rows = '';
+                $.each(data, function (i, item) {
+                    rows += "<tr>"
+                    rows += "<td>" + item.dni_conductor + "</td>"
+                    rows += "<td>" + item.nombres_conductor + "</td>"
+                    rows += "<td>" + item.apellido_conductor + "</td>"
+                    rows += "<td>" + item.correo_conductor + "</td>"
+                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Ver</button> <button type='button' id='btnDelete' class='btn btn-danger' onClick=' verDetalle()' >Delete</button></td>"
+                    rows += "</tr>";
+                    $("#tabla tbody").html(rows);
+                });
+            }
+
+        })
+    }
+
+    $("#btnSave").click(function (e) {
+
+        var data = {
+
+            dni_conductor: $("#txtdni").val(),
+            nombres_conductor: $("#txtnombres").val(),
+            apellido_conductor: $("#txtapellidos").val(),
+            correo_conductor: $("#txtcorreo").val(),
+            clave_conductor: $("#txtclave").val(),
+            rutafoto_conductor: "defaul_image",
+            celular_conductor: $("#txtcelular").val()
+        }
+
+        $.ajax({
+            url: '/Conductores/Save_Conductores/',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                listaConductores();
+                if (data == true) {
+                    alert("Registrado");
+                    $("#exampleModalXl").modal('hide');
+                    clear();
+                }
+              
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        })
+
+
+    });
+
+</script>

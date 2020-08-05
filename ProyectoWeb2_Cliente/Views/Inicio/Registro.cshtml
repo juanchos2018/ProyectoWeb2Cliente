@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+}
+
+
+<style>
+    .btnContactSubmit {
+        width: 50%;
+        border-radius: 1rem;
+        padding: 1.5%;
+        color: #fff;
+        background-color: #0062cc;
+        border: none;
+        cursor: pointer;
+        margin-right: 6%;
+        background-color: white;
+        color: blue;
+        margin-top: 4%;
+    }
+
+    .register .nav-tabs .nav-link:hover {
+        border: none;
+    }
+
+    .text-align {
+        margin-top: -3%;
+        margin-bottom: -9%;
+        padding: 10%;
+        margin-left: 30%;
+    }
+
+    .form-new {
+        margin-right: 22%;
+        margin-left: 20%;
+    }
+
+    .register-heading {
+        margin-left: 21%;
+        margin-bottom: 10%;
+        color: #e9ecef;
+    }
+
+        .register-heading h1 {
+            margin-left: 21%;
+            margin-bottom: 10%;
+            color: #e9ecef;
+        }
+
+    .btnLoginSubmit {
+        border: none;
+        padding: 2%;
+        width: 25%;
+        cursor: pointer;
+        background: #29abe2;
+        color: #fff;
+    }
+
+    .btnForgetPwd {
+        cursor: pointer;
+        margin-right: 5%;
+        color: #f8f9fa;
+    }
+
+    .register {
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        margin-top: 3%;
+        padding: 3%;
+        border-radius: 2.5rem;
+    }
+
+    .nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: white;
+    }
+
+
+    .navtop {
+        margin-top: 50px;
+    }
+
+    .tab-content {
+        padding: 40px;
+        margin-top: -20px;
+    }
+</style>
+
+<div class="container">
+    <ul class="nav nav-pills nav-fill navtop">
+        <li class="nav-item">
+            <a class="nav-link active" href="#menu1" data-toggle="tab">Clientes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#menu2" data-toggle="tab">Empresa</a>
+        </li>
+
+    </ul>
+    <div class="tab-content float-none">
+        <div class="tab-pane active" role="tabpanel" id="menu1">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Nombres</label>
+                        <input type="text" class="form-control" id="inputNombres" placeholder="Nombres">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Apellidos</label>
+                        <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Celular</label>
+                        <input type="number" class="form-control" id="inputCelular" placeholder="Celular">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Correo</label>
+                        <input type="email" class="form-control" id="inputCorreo" placeholder="Correo">
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">sexo</label>
+                        <select id="sexo" class="form-control">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contraseña</label>
+                        <input type="password" class="form-control" id="inputclave" placeholder="Contraseña">
+                    </div>
+                </div>
+
+
+                <button type="button" id="btnRegistrar" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="menu2">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Nombres Empresa</label>
+                        <input type="text" class="form-control" id="inputNombre2" placeholder="Nombre">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Celular</label>
+                        <input type="number" class="form-control" id="inputTelefono2" placeholder="Telefono">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label ">Correo</label>
+                        <input type="email" class="form-control" id="inputCorreo2" placeholder="Correo">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contraseña</label>
+                        <input type="password" class="form-control" id="inputClave2" placeholder="Contraseña">
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Direccion</label>
+                        <input type="text" class="form-control" id="inputDireccion" placeholder="Direccion">
+                    </div>
+
+                </div>
+
+
+                <button type="button" id="btnRegistrar2" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--  Modal Mensaje-->
+
+<div class="modal fade" id="ModalVerificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Verifique su Correo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_Ly3LBu.json" background="transparent" speed="1" style="width: 250px; height: 250px;margin-left:20% "  autoplay></lottie-player>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+             
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+<script src="~/Scripts/js/lottie-player.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script>
+
+    $("#btnRegistrar2").click(function () {
+      
+        var data = {
+
+            nombre_usuario: $("#inputNombre2").val(),
+            direccion_usuario: $("#inputDireccion").val(),
+            telefono_usuario: $("#inputTelefono2").val(),
+            correo_usuario: $("#inputCorreo2").val(),
+            clave_usuario: $("#inputClave2").val(),
+            url_imagen: "default_imagen",
+            tipo_usuario: "Empresa"
+        }
+
+        $.ajax({
+            url: '/Inicio/RegistrarEmpresa/',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                
+                clear();
+           
+                $("#ModalVerificar").modal("show");
+            },
+            error: function (err) {
+                alert("Error: " + err.responseText);
+            }
+        })
+
+    });
+
+
+
+    $("#btnRegistrar").click(function () {
+        //RegistrarEmpresa
+        $("#ModalVerificar").modal("show");
+
+
+
+    });
+
+
+</script>

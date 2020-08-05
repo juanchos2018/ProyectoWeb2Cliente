@@ -17,23 +17,23 @@ namespace ProyectoWeb2_Cliente.Models
         public string nombre_cliente { get; set; }
         public double latitud { get; set; }
         public double longitud { get; set; }
-
-        public string producto { get; set; }
-
+        public string id_empresa { get; set; }
+     //   public string producto { get; set; }
+        public string estado { get; set; }
         public DateTime fecha { get; set; }
 
 
         Conexion conexion;
         IFirebaseClient client;
-        public async Task Save_Pedido(Pedidos e)
+        public async Task Save_Pedido(Pedidos e,string id_cliente)
         {
          //   conexion = new Conexion();
             var firebase = new Firebase.Database.FirebaseClient("https://fir-app-cf755.firebaseio.com/");
           //  var key = Firebase.Database.FirebaseKeyGenerator.Next();
 
-            await firebase
-              .Child("PedidosCliente")
-              .PostAsync(new Pedidos() { id_cliente = e.id_cliente, nombre_cliente = e.nombre_cliente, latitud = e.latitud, longitud = e.longitud, producto = e.producto });
+             await firebase
+              .Child("PedidosCliente").Child(e.id_empresa).Child(id_cliente)
+              .PutAsync(new Pedidos() { id_cliente = e.id_cliente, nombre_cliente = e.nombre_cliente, latitud = e.latitud, longitud = e.longitud,estado="NoEnviado"});
 
            // await firebase
            //.Child("EntregaLista")
@@ -67,6 +67,23 @@ namespace ProyectoWeb2_Cliente.Models
 
 
             return lista;
+        }
+
+        public async Task<List<Pedidos>> Lista_Pedidos(string id_empresa)
+        {
+            var firebase = new Firebase.Database.FirebaseClient("https://fir-app-cf755.firebaseio.com/");
+
+            return (await firebase
+              .Child("PedidosCliente").Child(id_empresa)
+              .OnceAsync<Pedidos>()).Select(item => new Pedidos
+              {
+                  id_cliente = item.Object.id_cliente,
+                  nombre_cliente = item.Object.nombre_cliente,
+                  estado = item.Object.estado,
+                  fecha = item.Object.fecha,
+                  latitud=item.Object.latitud,
+                  longitud=item.Object.longitud
+              }).ToList();
         }
     }
 

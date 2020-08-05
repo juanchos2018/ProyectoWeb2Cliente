@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout_admin.cshtml";
+}
+
+
+<link href="~/Scripts/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<!-- Button -->
+<div class="card-body">
+    <input type="text" id="txtid_emoresa" name="name" hidden="" value="@ViewBag.Id_empresa" />
+   
+</div>
+
+<!-- Modal Register -->
+<div class="modal fade" id="ModalDetalle" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalle</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                                        
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header">Detalle </div>
+                            <div class="card-body">
+                                <table id="tablaDetalle" class="table">
+                                    <thead>
+                                        <tr>
+                                                                                
+                                            <th>Producto</th>
+                                            <th>cantidad</th>
+                                            <th>total</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">PEDIDOS CLIENTE</h6>
+    </div>
+    <div class="card-body">
+
+        <table id="tabla" class="table">
+            <thead>
+                <tr>
+
+                    <th style="display:none;">id</th>
+                    <th>Nombre Cliente</th>
+                    <th>fecha</th>
+                    <th>estado</th>
+                    <th>ubicacion</th>
+                    <th> Accion</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+</div>
+
+<!--  Modal Mensaje-->
+
+<div class="modal fade" id="ModalCheck" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Registrado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <lottie-player src="https://assets7.lottiefiles.com/datafiles/7aeDjIq0a63VZGd/data.json" background="transparent" speed="1" style="width: 250px; height: 250px;margin-left:20% " autoplay></lottie-player>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/js/jquery-3.4.1.js"></script>
+<script src="~/Scripts/js/bootstrap.min.js"></script>
+
+
+<script src="~/Scripts/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/Scripts/js/datatables-demo.js"></script>
+<script src="~/Scripts/js/lottie-player.js"></script>
+
+<script>
+    var id_producto;
+    var nombre_producto;
+    var descripcion_producto;
+    var precio_producto;
+    var ruta_foto;
+
+
+    $(document).ready(function () {
+       listaPedidos();
+    });
+
+    function listaPedidos() {
+
+        $.ajax({
+            type: "GET",
+            url: '/Pedidos/GetPedidos/',
+            contentType: "application/json",
+            success: function (data) {
+
+                var rows = '';       
+
+                $.each(data, function (i, item) {
+                 
+                    rows += "<tr>"
+                    rows += "<td style='display:none;'>" + item.id_cliente + "</td>"                
+                    rows += "<td>" + item.nombre_cliente + "</td>"
+                    rows += "<td>" + item.fecha + "</td>"
+                    rows += "<td>" + item.estado + "</td>"           
+                    rows += "<td>" + item.latitud + item.longitud + "</td>"  
+                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Detalle</button> <button type='button' id='btnDelete' class='btn btn-danger' onClick='addRowHandlers()' >Enviar</button></td>"
+                    rows += "</tr>";
+                    $("#tabla tbody").html(rows);
+                   
+                });
+            }
+
+        })
+    }
+
+    function addRowHandlers() {
+        var table = document.getElementById("tabla");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler =
+                function (row) {
+                    return function () {
+                        var cel0 = row.getElementsByTagName("td")[0];                   
+                        var id_cliente = cel0.innerHTML;
+
+                        Detalle(id_cliente)
+
+
+                    };
+                };
+
+            currentRow.onclick = createClickHandler(currentRow);
+        }
+    }
+    window.onload = addRowHandlers();
+
+
+    function Detalle(id_cliente) {
+        $("#ModalDetalle").modal("show");
+        $.ajax({
+            type: "GET",
+            url: '/Pedidos/GetDetallePedidos/?id_cliente=' + id_cliente,
+            contentType: "application/json",
+            success: function (data) {
+
+                var rows = '';
+
+                $.each(data, function (i, item) {
+
+                    rows += "<tr>"
+                    rows += "<td>" + item.nombre_producto + "</td>"
+                    rows += "<td>" + item.cantidad + "</td>"
+                    rows += "<td>" + item.total + "</td>"
+                   rows += "</tr>";
+                    $("#tablaDetalle tbody").html(rows);
+
+                });
+            }
+
+        })
+
+    }
+
+    $("#btnSave").click(function () {
+
+        if (window.FormData == undefined)
+            alert("Error: FormData is undefined");
+
+        else {
+            // para los productos
+            var fileUpload = $("#fileToUpload").get(0);
+            var nombre_producto = $("#nombre_producto").val();
+            var descripcion_producto = $("#descripcion_producto").val();
+            var precio_producto = $("#precio_producto").val();
+            var stock_producto = $("#stock_producto").val();
+
+            var files = fileUpload.files;
+            var fileData = new FormData();
+
+            fileData.append(files[0].name, files[0]);
+            fileData.append("nombre_producto", nombre_producto);
+            fileData.append("descripcion_producto", descripcion_producto);
+            fileData.append("precio_producto", precio_producto);
+            fileData.append("stock_producto", stock_producto);
+
+
+            $.ajax({
+                url: '/Productos/CreateProducto',
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: fileData,
+                success: function (response) {
+                    listaProductos();
+                    $("#AgregarProdudctto").modal('hide');
+
+                    $("#ModalCheck").modal("show");
+                 //   listaProductos();
+
+                },
+                error: function (xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+            });
+        }
+
+    });
+
+ 
+
+</script>

@@ -71,7 +71,6 @@ D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\Proyec
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\es\System.Web.Webpages.Razor.resources.dll
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\es\System.Web.Helpers.resources.dll
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\es\System.Web.Mvc.resources.dll
-D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.csprojAssemblyReference.cache
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.csproj.CoreCompileInputs.cache
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.csproj.CopyComplete
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.dll
@@ -99,3 +98,5 @@ D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\Proyec
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\System.Net.Http.Primitives.xml
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\System.Reactive.xml
 D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.csproj.App.config
+D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\obj\Debug\ProyectoWeb2_Cliente.csprojAssemblyReference.cache
+D:\Disco local\disco\VIII-Ciclo\Curso-Web2\Unidad-II\ProyectoWeb2_Cliente\ProyectoWeb2_Cliente\bin\Firebase.Storage.dll

@@ -1,4 +1,4 @@
-﻿using Firebase.Database.Query;
+﻿    using Firebase.Database.Query;
 using ProyectoWeb2_Cliente.Models;
 using System;
 using System.Collections.Generic;
@@ -20,9 +20,9 @@ namespace ProyectoWeb2_Cliente.Controllers
         }
         public async Task<ActionResult> Procesar(Pedidos o )
         {
-           await   ob.Save_Pedido(o);
+          // await   ob.Save_Pedido(o);
 
-            return Json(ob, JsonRequestBehavior.AllowGet);
+            return Json("dd", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Ver_Rastreo()
