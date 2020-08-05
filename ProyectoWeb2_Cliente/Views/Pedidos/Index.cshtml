@@ -9,7 +9,7 @@
 <!-- Button -->
 <div class="card-body">
     <input type="text" id="txtid_emoresa" name="name" hidden="" value="@ViewBag.Id_empresa" />
-   
+
 </div>
 
 <!-- Modal Register -->
@@ -22,7 +22,7 @@
             </div>
             <div class="modal-body">
                 <div class="">
-                                        
+
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-header">Detalle </div>
@@ -30,11 +30,11 @@
                                 <table id="tablaDetalle" class="table">
                                     <thead>
                                         <tr>
-                                                                                
+
                                             <th>Producto</th>
                                             <th>cantidad</th>
                                             <th>total</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btnCancelar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    
+
                 </div>
             </div>
         </div>
@@ -105,6 +105,40 @@
 
 
 
+<!-- Logout Modal Conductor We-->
+<div class="modal fade" id="ModalConductor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Conductor</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/" autocomplete="off" method="post">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label>Nombre Conductor </label>
+                            <div class="col-md-12">
+                                <select id="id_conductor" name="id_conductor" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <button type="button" id="btnSave" class="btn btn-success float-right">Elegir</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="~/Scripts/js/jquery-3.4.1.js"></script>
 <script src="~/Scripts/js/bootstrap.min.js"></script>
 
@@ -123,7 +157,7 @@
 
 
     $(document).ready(function () {
-       listaPedidos();
+        listaPedidos();
     });
 
     function listaPedidos() {
@@ -134,20 +168,20 @@
             contentType: "application/json",
             success: function (data) {
 
-                var rows = '';       
+                var rows = '';
 
                 $.each(data, function (i, item) {
-                 
+
                     rows += "<tr>"
-                    rows += "<td style='display:none;'>" + item.id_cliente + "</td>"                
+                    rows += "<td style='display:none;'>" + item.id_cliente + "</td>"
                     rows += "<td>" + item.nombre_cliente + "</td>"
                     rows += "<td>" + item.fecha + "</td>"
-                    rows += "<td>" + item.estado + "</td>"           
-                    rows += "<td>" + item.latitud + item.longitud + "</td>"  
-                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Detalle</button> <button type='button' id='btnDelete' class='btn btn-danger' onClick='addRowHandlers()' >Enviar</button></td>"
+                    rows += "<td>" + item.estado + "</td>"
+                    rows += "<td>" + item.latitud + item.longitud + "</td>"
+                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Detalle</button> <button type='button' id='btnDelete' class='btn btn-danger' onclick='listarConductores(" + item.latitud + ',' + item.longitud + ")' >Enviar</button></td>"
                     rows += "</tr>";
                     $("#tabla tbody").html(rows);
-                   
+
                 });
             }
 
@@ -162,7 +196,7 @@
             var createClickHandler =
                 function (row) {
                     return function () {
-                        var cel0 = row.getElementsByTagName("td")[0];                   
+                        var cel0 = row.getElementsByTagName("td")[0];
                         var id_cliente = cel0.innerHTML;
 
                         Detalle(id_cliente)
@@ -174,10 +208,17 @@
             currentRow.onclick = createClickHandler(currentRow);
         }
     }
-    window.onload = addRowHandlers();
+   // window.onload = addRowHandlers();
 
 
     function Detalle(id_cliente) {
+        //var idcli = String(id_cliente);
+        //alert(idcli);
+        //var TotalDevengado = "500,000,000,000";
+        //  TotalDevengado = TotalDevengado.replace(/,/g, "");
+       // idcli = idcli.replace("/", "");
+     //   alert(TotalDevengado)
+
         $("#ModalDetalle").modal("show");
         $.ajax({
             type: "GET",
@@ -193,7 +234,7 @@
                     rows += "<td>" + item.nombre_producto + "</td>"
                     rows += "<td>" + item.cantidad + "</td>"
                     rows += "<td>" + item.total + "</td>"
-                   rows += "</tr>";
+                    rows += "</tr>";
                     $("#tablaDetalle tbody").html(rows);
 
                 });
@@ -203,7 +244,32 @@
 
     }
 
-    $("#btnSave").click(function () {
+
+
+    function listarConductores(la, lo) {
+        latitud = la;
+        longitud = lo;
+
+        $("#ModalConductor").modal('show');
+
+        var select = $("#id_conductor");
+        select.find('option').remove();
+        $.ajax({
+            type: "GET",
+            url: '/Conductores/Get_Conductores/',
+            contentType: "application/json",
+            success: function (data) {
+                
+                $.each(data, function (i, item) {
+                    select.append('<option   class="form-control"  value="' + item.id_conductor + '">' + item.nombres_conductor + '</option>');
+                });
+            }
+
+        })
+    }
+
+
+    $("#btnSavefgfgf").click(function () {
 
         if (window.FormData == undefined)
             alert("Error: FormData is undefined");
@@ -239,7 +305,7 @@
                     $("#AgregarProdudctto").modal('hide');
 
                     $("#ModalCheck").modal("show");
-                 //   listaProductos();
+                    //   listaProductos();
 
                 },
                 error: function (xhr, status) {
@@ -250,6 +316,6 @@
 
     });
 
- 
+
 
 </script>

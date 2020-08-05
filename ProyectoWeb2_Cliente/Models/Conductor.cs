@@ -27,6 +27,7 @@ namespace ProyectoWeb2_Cliente.Models
         public string rutafoto_conductor { get; set; }
 
         public string id_empresa { get; set; }
+        public string verificado { get; set; }
         //public double lat_conductor { get; set; }
         // public double lon_conductor { get; set; }
         // public string fecha_creacion { get; set; }
@@ -74,6 +75,7 @@ namespace ProyectoWeb2_Cliente.Models
 
                 data.id_conductor = id;
                 data.id_empresa = id_empresa;
+                data.verificado = "false";
                 SetResponse setResponse = client.Set("Conductores/" + data.id_conductor, data);
 
             ///    var firebase = new Firebase.Database.FirebaseClient("https://fir-app-cf755.firebaseio.com/");
