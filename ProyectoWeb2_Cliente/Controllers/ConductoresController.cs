@@ -25,7 +25,8 @@ namespace ProyectoWeb2_Cliente.Controllers
 
         public ActionResult Get_Conductores(string id_empresa)
         {
-            var lista = o.listaConductor();
+            string id_e = InicioController.id_empresa;
+            var lista = o.listaConductor().Where(x=>x.id_empresa==id_e).ToList();
             return Json(lista, JsonRequestBehavior.AllowGet);
 
         }

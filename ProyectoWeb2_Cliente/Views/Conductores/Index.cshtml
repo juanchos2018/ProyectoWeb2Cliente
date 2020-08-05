@@ -87,6 +87,7 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Corrreo</th>
+                    <th>VErifcado</th>
                     <th></th>
                 </tr>
             </thead>
@@ -123,7 +124,8 @@
                     rows += "<td>" + item.nombres_conductor + "</td>"
                     rows += "<td>" + item.apellido_conductor + "</td>"
                     rows += "<td>" + item.correo_conductor + "</td>"
-                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Ver</button> <button type='button' id='btnDelete' class='btn btn-danger' onClick=' verDetalle()' >Delete</button></td>"
+                    rows += "<td>" + item.verificado + "</td>"
+                    rows += "<td> <button type='button' id='btnVer' class='btn btn-primary'  onClick='addRowHandlers()'>Ver</button> <button type='button' id='btnDelete' class='btn btn-danger' onClick=' verDetalle()' >otro</button></td>"
                     rows += "</tr>";
                     $("#tabla tbody").html(rows);
                 });
@@ -141,7 +143,7 @@
             apellido_conductor: $("#txtapellidos").val(),
             correo_conductor: $("#txtcorreo").val(),
             clave_conductor: $("#txtclave").val(),
-            rutafoto_conductor: "defaul_image",
+            rutafoto_conductor: "default_imagen",
             celular_conductor: $("#txtcelular").val()
         }
 
