@@ -65,8 +65,26 @@ namespace ProyectoWeb2_Cliente.Controllers
                 var token = a.User.FederatedId;
                 var id = a.User.LocalId;  //para tener el id del usuario que esta registrado we :V
                 emp.Save_Empresa(o, id);
-               // ModelState.AddModelError(string.Empty, "verifica tu coreo" + " token" + token + " ids" + id);
-                
+
+
+                //  auth.CreateUserWithEmailAndPasswordAsync(o.correo_usuario, o.clave_usuario, o.nombre_usuario, true).contiwitd(task=>;
+                //{
+                //    if (task.IsCompleted)
+                //    {
+                //        var aa = task.Result.User.LocalId; // obtiene el id del usuario Registrado
+                //        estado = task.Status;
+                //        es = true;
+                //        // aqui poner el Codigo para Registrar a SQL
+                //    }
+                //    if (task.IsFaulted)
+                //    {
+                //        estado = task.Status;
+                //        es = false;
+                //    }
+                //    estado = task.Status;
+                //});
+                // ModelState.AddModelError(string.Empty, "verifica tu coreo" + " token" + token + " ids" + id);
+
             }
             catch (Exception ex)
             {
@@ -118,6 +136,7 @@ namespace ProyectoWeb2_Cliente.Controllers
                         var allPersons = await usu.Lista_Usuarios();
               
                         var datos = allPersons.Where(a => a.id_usuario == ab.User.LocalId).FirstOrDefault();
+                    
                         nombreusuario = datos.nombre_usuario;
                         id_empresa = datos.id_usuario;
                         tipo_usuario = datos.tipo_usuario;

@@ -38,12 +38,14 @@ namespace ProyectoWeb2_Cliente.Controllers
                 //    producto.clave_conductor = HttpContext.Request.Params["clave_conductor"];
                   //  producto.fecha_creacion = DateTime.Now.ToShortDateString();
 
-                    string fileName = file.FileName;
+                     
                     string path = Path.Combine(Server.MapPath("~/Content/Images/"), file.FileName);
                     file.SaveAs(path);
                     stream = new FileStream(Path.Combine(path), FileMode.Open);
                     Directory.CreateDirectory(Server.MapPath("~/uploads/"));
-                    Task task = Task.Run(() => producto.Upload(stream, producto, file.FileName, id_empresa));
+
+                        Task task = Task.Run(() => producto.Upload(stream, producto, file.FileName, id_empresa));
+                 
                     task.Wait();
                     status = task.Status;  // 5 task complete..
                     if (task.IsCompleted)

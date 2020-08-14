@@ -48,7 +48,7 @@ namespace ProyectoWeb2_Cliente.Controllers
                 .PutAsync(stream, cancellation.Token);
             try
             {
-                string link = await task;
+                string link = await task; // wwwfireabsdfksndfimg .com
                 obj.ruta_foto_producto = link;
                 Task tarea2 = Task.Run(() => Create_Producto(obj, id_empresa));
             }
@@ -58,6 +58,41 @@ namespace ProyectoWeb2_Cliente.Controllers
                 Console.WriteLine("Exception was thrown: {0}", ex);
             }
             return true;
+        }
+
+
+
+        public async Task<string> Upload2(FileStream stream, Productos obj, string filenanme, string id_empresa)
+        {
+            string link="";
+
+            conexion = new Conexion();
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(conexion.Firekey()));
+            var a = await auth.SignInWithEmailAndPasswordAsync(conexion.AthEmail(), conexion.AthPassword());
+
+            var cancellation = new CancellationTokenSource();
+            var task = new FirebaseStorage(
+                Bucket,
+                new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                    ThrowOnCancel = true // when you cancel the upload, exception is thrown. By default no exception is thrown
+                })
+                .Child("FotosProductos")
+                .Child(filenanme)
+                .PutAsync(stream, cancellation.Token);
+            try
+            {
+               link = await task; // wwwfireabsdfksndfimg .com
+                obj.ruta_foto_producto = link;
+                Task tarea2 = Task.Run(() => Create_Producto(obj, id_empresa));
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception was thrown: {0}", ex);
+            }
+            return link;
         }
 
         public async Task<bool> Create_Producto(Productos o,string id_empresa)

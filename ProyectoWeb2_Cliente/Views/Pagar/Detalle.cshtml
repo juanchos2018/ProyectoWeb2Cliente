@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProyectoWeb2_Cliente.Models.Pedidos>
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Detalle</h2>
+
+
+<table id="detaltalle" class="table">
+    <thead>
+        <tr>
+            <th style="width:50px; ">  id_cliente</th>
+            <th style="width:50px; "> id_producto</th>
+            <th style="width:120px; "> nombre_producto</th>
+            <th style="width:120px; ">cantidad</th>
+            <th style="width:120px; ">id_empresa</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th> @(item.id_cliente)</th>
+                <th> @(item.id)</th>
+                <th> @(item.nombre)</th>
+                <th> @(item.nivel)</th>
+             
+            
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+
+</script>

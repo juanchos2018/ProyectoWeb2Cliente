@@ -31,6 +31,12 @@ namespace ProyectoWeb2_Cliente.Controllers
             return View();
         }
 
+        public ActionResult Detalle()
+        {
+
+            return View();
+        }
+
         public async Task<ActionResult> Get_Position2(Envios e)
         {
             List<Envios> lis = new List<Envios>();

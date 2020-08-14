@@ -213,11 +213,11 @@
                 $.each(data, function (i, item) {
                     var span = '';
                    
-                    if (item.estado_producto == "NoPublicado") {
-                        span = "<span class='badge badge-danger'>No Publicado</span>";
+                    if (item.verificado == "false") {
+                        span = "<span class='badge badge-danger'>No Verificado</span>";
                     }
-                    if (item.estado_producto == "Publicado") {
-                        span = "<span class='badge badge-success'>Publicado</span>";
+                    if (item.verificado == "true") {
+                        span = "<span class='badge badge-success'>Verificado</span>";
                     }
                     console.log(item.estado_producto);
                     rows += "<tr>"

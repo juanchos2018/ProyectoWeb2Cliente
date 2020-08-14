@@ -76,5 +76,17 @@ namespace ProyectoWeb2_Cliente.Controllers
             return Json(completado, JsonRequestBehavior.AllowGet);
 
         }
+
+        public  ActionResult VerTodos()
+        {
+            return View();
+        }
+        public ActionResult VerTodos_conductores()
+        {
+            
+
+            return Json("lista", JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

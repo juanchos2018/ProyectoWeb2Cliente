@@ -279,14 +279,8 @@
     <Content Include="Content\images\large-size\11.jpg" />
     <Content Include="Content\images\large-size\12.jpg" />
     <Content Include="Content\images\large-size\13.jpg" />
-    <Content Include="Content\images\large-size\2.jpg" />
-    <Content Include="Content\images\large-size\3.jpg" />
     <Content Include="Content\images\large-size\4.jpg" />
-    <Content Include="Content\images\large-size\5.jpg" />
-    <Content Include="Content\images\large-size\6.jpg" />
-    <Content Include="Content\images\large-size\7.jpg" />
     <Content Include="Content\images\large-size\8.jpg" />
-    <Content Include="Content\images\large-size\9.jpg" />
     <Content Include="Scripts\css\jquery-ui.min.css" />
     <Content Include="Scripts\js\ajax-mail.js" />
     <Content Include="Scripts\js\bootstrap.min.js" />
@@ -401,6 +395,8 @@
     <Content Include="Views\Conductores\Index.cshtml" />
     <Content Include="Views\Shared\Layout_admin.cshtml" />
     <Content Include="Views\Pedidos\Index.cshtml" />
+    <Content Include="Views\Pagar\Detalle.cshtml" />
+    <Content Include="Views\Conductores\VerTodos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
